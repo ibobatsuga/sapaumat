@@ -1,0 +1,1599 @@
+/* ===================================================================
+   Majelis Pro (SapaUmat) — Direktori & Jadwal Rumah Ibadah
+   Modern Spiritual Islamic Architecture & TV Display Ready
+   =================================================================== */
+
+[hidden] {
+  display: none !important;
+}
+
+:root {
+  --primary: #047857;
+  --primary-hover: #065f46;
+  --primary-dark: #064e3b;
+  --primary-light: #d1fae5;
+  --primary-surface: #ecfdf5;
+
+  --gold: #d97706;
+  --gold-hover: #b45309;
+  --gold-light: #fef3c7;
+  --gold-surface: #fffbeb;
+
+  --emerald: #10b981;
+  --emerald-light: #d1fae5;
+  --rose: #e11d48;
+  --rose-light: #ffe4e6;
+  --sky: #0284c7;
+  --sky-light: #e0f2fe;
+
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #e2e8f0;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-arabic: 'Amiri', serif;
+
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ===================================================================
+   Header & Navigation
+   =================================================================== */
+.app-header {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+  color: #fef3c7;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(4, 120, 87, 0.25);
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.badge-masjid {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: var(--gold-light);
+  color: var(--gold-hover);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.brand-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 0.35rem;
+  border-radius: var(--radius-md);
+  gap: 0.25rem;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.85rem;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-tab:hover {
+  color: var(--primary-dark);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.nav-tab.active {
+  background: #ffffff;
+  color: var(--primary-dark);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tool-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tool-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary-light);
+}
+
+.tool-btn.active {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: #a7f3d0;
+}
+
+.header-clock {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  background: #f8fafc;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.online-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.35rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.indicator-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(4, 120, 87, 0.3);
+}
+
+/* ===================================================================
+   Card & Base Utility
+   =================================================================== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.main-container {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.app-view {
+  display: none;
+}
+
+.app-view.active {
+  display: block;
+}
+
+.section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.section-header-bar h2 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: -0.01em;
+}
+
+.section-header-bar p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.25rem;
+  background: #ffffff;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ===================================================================
+   VIEW 1: JADWAL & SHOLAT (PORTAL JAMAAH)
+   =================================================================== */
+.sholat-hero {
+  background: linear-gradient(135deg, #064e3b 0%, #047857 70%, #065f46 100%);
+  color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2.25rem;
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 2rem;
+  box-shadow: 0 16px 32px rgba(6, 78, 59, 0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.sholat-hero::before {
+  content: "🕌";
+  position: absolute;
+  right: -20px;
+  bottom: -30px;
+  font-size: 14rem;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.hijri-badge {
+  display: inline-block;
+  background: rgba(254, 243, 199, 0.18);
+  color: #fef3c7;
+  border: 1px solid rgba(254, 243, 199, 0.3);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.hero-masehi-date {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-quote {
+  font-size: 0.95rem;
+  color: #d1fae5;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  max-width: 480px;
+}
+
+.city-selector-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: fit-content;
+}
+
+.city-selector-wrap label {
+  font-size: 0.8rem;
+  color: #d1fae5;
+  font-weight: 600;
+}
+
+.city-select {
+  background: #ffffff;
+  color: var(--primary-dark);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 0.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+/* Next Prayer Card */
+.next-prayer-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.next-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fef3c7;
+  margin-bottom: 0.25rem;
+}
+
+.next-name {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+}
+
+.next-time {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #a7f3d0;
+  margin-bottom: 1rem;
+}
+
+.countdown-timer {
+  font-family: var(--font-mono);
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.85rem;
+}
+
+.countdown-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.countdown-progress-fill {
+  height: 100%;
+  background: #f59e0b;
+  border-radius: 9999px;
+  transition: width 0.5s ease;
+}
+
+.next-sub {
+  font-size: 0.8rem;
+  color: #d1fae5;
+}
+
+/* 6 Prayer Times Grid */
+.prayer-times-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.prayer-time-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.prayer-time-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.prayer-time-card.is-active-prayer {
+  border: 2px solid var(--primary);
+  background: var(--primary-surface);
+  box-shadow: 0 4px 14px rgba(4, 120, 87, 0.15);
+}
+
+.prayer-time-card.is-active-prayer::after {
+  content: "BERIKUTNYA";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--gold);
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-bottom-left-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.pt-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.pt-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.15rem;
+  color: var(--primary);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.pt-time {
+  font-family: var(--font-mono);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1;
+}
+
+.pt-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+}
+
+/* Quick Cards Grid */
+.quick-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.quick-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.qc-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.qc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-emerald { background: var(--emerald-light); color: var(--primary); }
+.icon-gold { background: var(--gold-light); color: var(--gold); }
+.icon-teal { background: #ccfbf1; color: #0f766e; }
+
+.qc-header h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.qc-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+}
+
+.qc-action button {
+  width: 100%;
+  justify-content: center;
+}
+
+.jumat-officers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  background: #f8fafc;
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.jumat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.jumat-row span {
+  color: var(--text-muted);
+}
+
+.jumat-row strong, .jumat-row em {
+  color: var(--text-main);
+  text-align: right;
+}
+
+.hadits-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+
+.hadits-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.5rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.hadits-arti {
+  font-size: 0.85rem;
+  color: var(--text-main);
+  font-style: italic;
+  margin-bottom: 0.35rem;
+  line-height: 1.4;
+}
+
+.hadits-riwayat {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* ===================================================================
+   VIEW 2: LAYAR DISPLAY TV (MODE MASJID)
+   =================================================================== */
+.tv-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  background: #ffffff;
+}
+
+.tv-hint {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.btn-fullscreen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--primary-dark);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-fullscreen:hover {
+  background: var(--primary);
+}
+
+/* TV Display Board */
+.tv-board-wrapper {
+  background: #064e3b;
+  color: #ffffff;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tv-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  padding-bottom: 1.25rem;
+}
+
+.tv-masjid-title h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.tv-masjid-title p {
+  font-size: 0.9rem;
+  color: #a7f3d0;
+}
+
+.tv-bismillah {
+  font-family: var(--font-arabic);
+  font-size: 2.2rem;
+  color: #fef3c7;
+}
+
+.tv-clock-box {
+  text-align: right;
+}
+
+.tv-big-clock {
+  font-family: var(--font-mono);
+  font-size: 2.8rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.tv-dates {
+  font-size: 0.85rem;
+  color: #fef3c7;
+  margin-top: 0.35rem;
+}
+
+.tv-hero-countdown {
+  background: linear-gradient(135deg, rgba(4, 120, 87, 0.6) 0%, rgba(6, 78, 59, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tv-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #fef3c7;
+}
+
+.tv-next-prayer {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #ffffff;
+}
+
+.tv-hero-right {
+  text-align: right;
+}
+
+.tv-countdown-num {
+  font-family: var(--font-mono);
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: #fef3c7;
+  line-height: 1;
+}
+
+.tv-countdown-sub {
+  font-size: 0.85rem;
+  color: #a7f3d0;
+  margin-top: 0.25rem;
+}
+
+.tv-prayers-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+
+.tv-p-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 0.75rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.tv-p-card.is-active {
+  background: rgba(245, 158, 11, 0.25);
+  border-color: #f59e0b;
+  transform: scale(1.03);
+}
+
+.tv-p-name {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.tv-p-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.25rem;
+  color: #fef3c7;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.tv-p-time {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.tv-marquee-strip {
+  display: flex;
+  align-items: center;
+  background: #022c22;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  overflow: hidden;
+  gap: 1rem;
+}
+
+.tv-marquee-label {
+  background: var(--gold);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+.tv-marquee-track {
+  overflow: hidden;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.tv-marquee-track span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: tvMarqueeScroll 28s linear infinite;
+  font-size: 0.95rem;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+@keyframes tvMarqueeScroll {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+/* ===================================================================
+   VIEW 3: AGENDA KAJIAN & KEGIATAN
+   =================================================================== */
+.filter-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.filter-pill {
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.filter-pill:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.filter-pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.kajian-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.kajian-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s;
+}
+
+.kajian-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.kajian-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+
+.badge-kajian-cat {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.cat-rutin { background: var(--primary-light); color: var(--primary-dark); }
+.cat-tabligh { background: var(--gold-light); color: var(--gold-hover); }
+.cat-tpa { background: var(--sky-light); color: var(--sky); }
+.cat-sosial { background: var(--emerald-light); color: var(--emerald); }
+
+.kajian-time-badge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.kajian-judul {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.kajian-pemateri {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+}
+
+.kajian-meta-box {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+}
+
+.btn-share-wa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-share-wa:hover {
+  background: #1da851;
+}
+
+/* ===================================================================
+   VIEW 4: KAS & TRANSPARANSI INFAQ
+   =================================================================== */
+.keuangan-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.keu-card {
+  padding: 1.5rem;
+}
+
+.keu-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.keu-val {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.35rem;
+}
+
+.text-emerald { color: var(--primary); }
+.text-primary { color: #0284c7; }
+.text-rose { color: var(--rose); }
+
+.keu-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.alokasi-box {
+  margin-bottom: 1.75rem;
+}
+
+.alokasi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.badge-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+}
+
+.alokasi-bars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.pos-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.pos-info span { color: var(--text-muted); }
+.pos-info strong { color: var(--text-main); font-family: var(--font-mono); }
+
+.pos-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.pos-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+}
+
+.table-card-head {
+  margin-bottom: 1rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.data-table th {
+  background: #f8fafc;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-table td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.data-table tr:hover td {
+  background: #f8fafc;
+}
+
+.nominal-in {
+  color: var(--primary);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.nominal-out {
+  color: var(--rose);
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+/* ===================================================================
+   VIEW 5: DIREKTORI RUMAH IBADAH & KIBLAT
+   =================================================================== */
+.direktori-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 1.5rem;
+}
+
+.kiblat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.kiblat-degree-badge {
+  background: var(--gold-light);
+  color: var(--gold-hover);
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+}
+
+.kiblat-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.compass-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.compass-dial {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 4px solid var(--primary-dark);
+  background: radial-gradient(circle, #ffffff 60%, var(--primary-surface) 100%);
+  box-shadow: 0 8px 24px rgba(4, 120, 87, 0.2);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.compass-point {
+  position: absolute;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--primary-dark);
+}
+
+.compass-point.north { top: 8px; color: var(--rose); }
+.compass-point.east { right: 12px; }
+.compass-point.south { bottom: 8px; }
+.compass-point.west { left: 12px; }
+
+.compass-needle {
+  width: 6px;
+  height: 180px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.needle-tip {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 30px solid var(--primary);
+  display: flex;
+  justify-content: center;
+}
+
+.kabah-icon {
+  position: absolute;
+  top: -24px;
+  font-size: 1.3rem;
+}
+
+.kiblat-tips {
+  background: var(--gold-surface);
+  border: 1px solid rgba(217, 119, 6, 0.2);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+.kiblat-tips strong {
+  color: var(--gold-hover);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.kiblat-tips p {
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.masjid-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.masjid-items-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.masjid-item {
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  transition: all 0.2s;
+}
+
+.masjid-item:hover {
+  background: #ffffff;
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.m-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.m-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.m-dist {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.m-addr {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.m-facilities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.m-fac-tag {
+  font-size: 0.75rem;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+}
+
+/* ===================================================================
+   MODALS (QRIS, Tambah Kajian, Tambah Mutasi)
+   =================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: 460px;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modal-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-group input,
+.form-group select {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  color: var(--text-main);
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.15);
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem;
+  background: #f8fafc;
+  border-top: 1px solid var(--border-color);
+}
+
+/* QRIS Modal */
+.qris-body {
+  padding: 1.75rem 1.5rem 1.25rem;
+}
+
+.qris-masjid-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.qris-masjid-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.qris-code-box {
+  background: #ffffff;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: inline-block;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.qris-logo-top {
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #c5221f;
+  margin-bottom: 0.5rem;
+}
+
+.qris-supported {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.qris-nominal-pills {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.nom-pill {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--border-color);
+  background: #f8fafc;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.nom-pill.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.qris-doa {
+  font-size: 0.8rem;
+  color: var(--primary);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ===================================================================
+   FOOTER
+   =================================================================== */
+.app-footer {
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: auto;
+}
+
+/* ===================================================================
+   RESPONSIVE DESIGN
+   =================================================================== */
+@media (max-width: 1024px) {
+  .sholat-hero {
+    grid-template-columns: 1fr;
+  }
+  .prayer-times-grid,
+  .tv-prayers-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .quick-cards-grid,
+  .keuangan-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .direktori-layout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .header-inner {
+    flex-direction: column;
+    height: auto;
+    padding: 0.75rem 0;
+    gap: 0.5rem;
+  }
+  .nav-tabs {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+  .prayer-times-grid,
+  .tv-prayers-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .alokasi-bars-grid {
+    grid-template-columns: 1fr;
+  }
+  .tv-header-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+  .tv-clock-box {
+    text-align: center;
+  }
+  .tv-hero-countdown {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  .tv-hero-right {
+    text-align: center;
+  }
+}

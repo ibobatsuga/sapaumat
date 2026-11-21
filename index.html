@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#064e3b">
+  <meta name="description" content="Majelis Pro (SapaUmat) — Direktori & Jadwal Rumah Ibadah, Waktu Sholat Otomatis, Transparansi Kas, Agenda Kajian & Arah Kiblat.">
+  <title>Majelis Pro — Jadwal & Informasi Rumah Ibadah</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER & APP NAV -->
+  <header class="app-header no-print">
+    <div class="header-inner container">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a4 4 0 0 0-4 4v1H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4Z"/>
+            <path d="M12 11v6m-3-3h6"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">Majelis Pro <span class="badge-masjid">SapaUmat</span></div>
+          <div class="brand-sub" id="masjidActiveName">Masjid Al-Ikhlas Mantrijeron</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button type="button" class="nav-tab active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Jadwal & Sholat</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="tvdisplay">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+          <span>Layar Display TV</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="kajian">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Agenda Kajian</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="keuangan">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Kas & Infaq</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="direktori">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          <span>Direktori & Kiblat</span>
+        </button>
+      </nav>
+
+      <!-- Tools -->
+      <div class="header-tools">
+        <button type="button" class="tool-btn audio-toggle active" id="btnAudioToggle" title="Suara Pengingat Azan / Chime">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <span id="audioStatusText">Suara Aktif</span>
+        </button>
+        <div class="header-clock" id="headerClock">12:00:00 WIB</div>
+        <div class="online-indicator" title="Mode Offline PWA Aktif">
+          <span class="indicator-dot"></span>
+          <span>Online</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-container container">
+
+    <!-- VIEW 1: JADWAL & SHOLAT (PORTAL JAMAAH) -->
+    <section id="viewDashboard" class="app-view active">
+      <!-- Welcome Hero Banner -->
+      <div class="sholat-hero card">
+        <div class="hero-left">
+          <div class="hijri-badge" id="dashHijriDate">11 Jumadil Akhir 1448 H</div>
+          <h1 class="hero-masehi-date" id="dashMasehiDate">Jumat, 21 November 2026</h1>
+          <p class="hero-quote">"Sesungguhnya sholat itu adalah fardhu yang ditentukan waktunya atas orang-orang yang beriman." (QS. An-Nisa: 103)</p>
+          
+          <div class="city-selector-wrap">
+            <label for="citySelect">Lokasi Kota Waktu Sholat:</label>
+            <select id="citySelect" class="city-select">
+              <option value="jogja" selected>Kota Yogyakarta (WIB)</option>
+              <option value="jakarta">DKI Jakarta (WIB)</option>
+              <option value="surabaya">Surabaya / Jatim (WIB)</option>
+              <option value="bandung">Bandung / Jabar (WIB)</option>
+              <option value="semarang">Semarang / Jateng (WIB)</option>
+              <option value="makassar">Makassar (WITA)</option>
+              <option value="medan">Medan (WIB)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Next Prayer Big Countdown Card -->
+        <div class="next-prayer-card">
+          <div class="next-tag">MENUJU WAKTU SHOLAT</div>
+          <div class="next-name" id="nextPrayerName">ASHAR</div>
+          <div class="next-time" id="nextPrayerTargetTime">Pukul 15:12 WIB</div>
+          <div class="countdown-timer" id="nextPrayerCountdown">02:44:18</div>
+          <div class="countdown-progress-bar">
+            <div class="countdown-progress-fill" id="nextPrayerProgress" style="width: 65%;"></div>
+          </div>
+          <div class="next-sub" id="nextPrayerSubnote">Persiapkan diri mengambil wudhu lebih awal.</div>
+        </div>
+      </div>
+
+      <!-- 6 Prayer Times Grid Cards -->
+      <div class="prayer-times-grid" id="prayerTimesGrid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Quick Action Cards (Infaq, Jadwal Sholat Jumat, Hadits Hari Ini) -->
+      <div class="quick-cards-grid">
+        <div class="quick-card card">
+          <div class="qc-header">
+            <div class="qc-icon icon-emerald">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h3>Infaq & Sedekah Digital (QRIS)</h3>
+          </div>
+          <p class="qc-desc">Salurkan infaq terbaik Anda untuk operasional dan kemakmuran masjid secara praktis.</p>
+          <div class="qc-action">
+            <button type="button" class="btn-primary" id="btnOpenQrisModal">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+              <span>Buka QRIS Infaq Masjid</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="quick-card card">
+          <div class="qc-header">
+            <div class="qc-icon icon-gold">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h3>Jadwal Sholat Jumat Pekan Ini</h3>
+          </div>
+          <div class="jumat-officers-list">
+            <div class="jumat-row"><span>Khatib:</span> <strong>Ustadz Dr. H. Fahmi Arifin, M.A.</strong></div>
+            <div class="jumat-row"><span>Imam:</span> <strong>Ustadz Ridwan Al-Hafidz</strong></div>
+            <div class="jumat-row"><span>Muadzin:</span> <strong>Bpk. Sukirman</strong></div>
+            <div class="jumat-row"><span>Tema Khutbah:</span> <em>"Menjaga Istiqamah & Ukhuwah di Tengah Kehidupan Modern"</em></div>
+          </div>
+        </div>
+
+        <div class="quick-card card">
+          <div class="qc-header">
+            <div class="qc-icon icon-teal">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            </div>
+            <h3>Mutiara Hadits Hari Ini</h3>
+          </div>
+          <div class="hadits-box">
+            <div class="hadits-arabic">خَيْرُ النَّاسِ أَنْفَعُهُمْ لِلنَّاسِ</div>
+            <p class="hadits-arti">"Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya."</p>
+            <span class="hadits-riwayat">(HR. Ath-Thabrani, dinilai Hasan)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: LAYAR DISPLAY TV (MODE FULLSCREEN MASJID) -->
+    <section id="viewTvdisplay" class="app-view">
+      <div class="tv-control-bar card">
+        <div class="tv-hint">
+          <strong>Mode Layar TV Masjid:</strong> Sambungkan monitor/TV ke browser untuk tampilan masjid digital.
+        </div>
+        <button type="button" class="btn-fullscreen" id="btnTvFullscreen">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          <span>Masuk Layar Penuh (Fullscreen)</span>
+        </button>
+      </div>
+
+      <!-- TV Display Board Container -->
+      <div class="tv-board-wrapper" id="tvBoard">
+        <!-- Top Bar TV -->
+        <div class="tv-header-row">
+          <div class="tv-masjid-title">
+            <h2>MASJID AL-IKHLAS</h2>
+            <p>Mantrijeron, Kota Yogyakarta • DI Yogyakarta</p>
+          </div>
+          <div class="tv-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+          <div class="tv-clock-box">
+            <div class="tv-big-clock" id="tvClock">12:00:00</div>
+            <div class="tv-dates">
+              <span id="tvHijriDate">11 Jumadil Akhir 1448 H</span> • <span id="tvMasehiDate">21 Nov 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TV Center Banner (Next Prayer Countdown) -->
+        <div class="tv-hero-countdown">
+          <div class="tv-hero-left">
+            <div class="tv-tag">WAKTU SHOLAT BERIKUTNYA</div>
+            <div class="tv-next-prayer" id="tvNextPrayerName">ASHAR — 15:12 WIB</div>
+          </div>
+          <div class="tv-hero-right">
+            <div class="tv-countdown-num" id="tvCountdownNum">02:44:18</div>
+            <div class="tv-countdown-sub">Menuju Waktu Sholat</div>
+          </div>
+        </div>
+
+        <!-- TV 6 Prayer Columns -->
+        <div class="tv-prayers-row" id="tvPrayersRow">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- TV Running Marquee -->
+        <div class="tv-marquee-strip">
+          <div class="tv-marquee-label">PENGUMUMAN DKM</div>
+          <div class="tv-marquee-track">
+            <span id="tvMarqueeText">Selamat datang di Masjid Al-Ikhlas Mantrijeron. Harap menonaktifkan nada dering handphone sebelum sholat dimulai. Kajian Ba'da Maghrib malam ini bersama Ustadz Ridwan Al-Hafidz. Saldo Kas Masjid saat ini: Rp 18.450.000. Jazakumullahu Khairan atas infaq Anda.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: AGENDA KAJIAN & KEGIATAN MAJELIS -->
+    <section id="viewKajian" class="app-view">
+      <div class="section-header-bar">
+        <div>
+          <h2>Agenda Kajian & Majelis Taklim</h2>
+          <p>Jadwal kajian rutin, tabligh akbar, serta program pembinaan santri dan jamaah.</p>
+        </div>
+        <button type="button" class="btn-primary" id="btnOpenAddKajianModal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Tambah Agenda Baru</span>
+        </button>
+      </div>
+
+      <!-- Filter Kategori Kajian -->
+      <div class="filter-pills-row" id="kajianFilterRow">
+        <button type="button" class="filter-pill active" data-filter="ALL">Semua Agenda</button>
+        <button type="button" class="filter-pill" data-filter="Rutin">Kajian Rutin</button>
+        <button type="button" class="filter-pill" data-filter="Tabligh">Tabligh Akbar</button>
+        <button type="button" class="filter-pill" data-filter="TPA">Santri & TPA</button>
+        <button type="button" class="filter-pill" data-filter="Sosial">Baksos / Sosial</button>
+      </div>
+
+      <!-- Kajian Cards Grid -->
+      <div class="kajian-cards-grid" id="kajianCardsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: KAS & TRANSPARANSI INFAQ -->
+    <section id="viewKeuangan" class="app-view">
+      <div class="section-header-bar">
+        <div>
+          <h2>Laporan Kas & Transparansi Infaq</h2>
+          <p>Laporan pertanggungjawaban kas masjid yang terbuka, amanah, dan terupdate real-time.</p>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn-secondary" id="btnExportKasCsv">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export CSV</span>
+          </button>
+          <button type="button" class="btn-primary" id="btnOpenAddMutasiModal">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Catat Mutasi Kas</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3 Metrics Overview -->
+      <div class="keuangan-overview-grid">
+        <div class="keu-card card">
+          <div class="keu-label">Saldo Kas Bersih Saat Ini</div>
+          <div class="keu-val text-emerald" id="keuSaldoTotal">Rp 18.450.000</div>
+          <div class="keu-sub">Dana siap digunakan untuk operasional & umat</div>
+        </div>
+        <div class="keu-card card">
+          <div class="keu-label">Total Pemasukan Bulan Ini</div>
+          <div class="keu-val text-primary" id="keuPemasukanBulan">Rp 24.850.000</div>
+          <div class="keu-sub">Termasuk infaq jumat & donasi QRIS</div>
+        </div>
+        <div class="keu-card card">
+          <div class="keu-label">Total Pengeluaran Bulan Ini</div>
+          <div class="keu-val text-rose" id="keuPengeluaranBulan">Rp 6.400.000</div>
+          <div class="keu-sub">Listrik, air, honor marbot & kebersihan</div>
+        </div>
+      </div>
+
+      <!-- Pos Alokasi Kas Bar -->
+      <div class="alokasi-box card">
+        <div class="alokasi-header">
+          <h3>Rincian Saldo Kas Berdasarkan Pos Amanah</h3>
+          <span class="badge-tag">Update Hari Ini</span>
+        </div>
+        <div class="alokasi-bars-grid">
+          <div class="pos-item">
+            <div class="pos-info">
+              <span>Kas Operasional Masjid</span>
+              <strong id="posOperasional">Rp 8.250.000 (45%)</strong>
+            </div>
+            <div class="pos-bar-bg"><div class="pos-bar-fill" style="width: 45%; background: #047857;"></div></div>
+          </div>
+          <div class="pos-item">
+            <div class="pos-info">
+              <span>Dana Renovasi & Sarana Prasarana</span>
+              <strong id="posRenovasi">Rp 5.500.000 (30%)</strong>
+            </div>
+            <div class="pos-bar-bg"><div class="pos-bar-fill" style="width: 30%; background: #0284c7;"></div></div>
+          </div>
+          <div class="pos-item">
+            <div class="pos-info">
+              <span>Santunan Yatim & Dhuafa</span>
+              <strong id="posSosial">Rp 3.200.000 (17%)</strong>
+            </div>
+            <div class="pos-bar-bg"><div class="pos-bar-fill" style="width: 17%; background: #d97706;"></div></div>
+          </div>
+          <div class="pos-item">
+            <div class="pos-info">
+              <span>Kegiatan Dakwah & Santri TPA</span>
+              <strong id="posDakwah">Rp 1.500.000 (8%)</strong>
+            </div>
+            <div class="pos-bar-bg"><div class="pos-bar-fill" style="width: 8%; background: #6366f1;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mutasi Table -->
+      <div class="table-card card">
+        <div class="table-card-head">
+          <h3>Buku Mutasi Kas Masuk & Keluar Terkini</h3>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Kategori / Pos</th>
+                <th>Keterangan Transaksi</th>
+                <th>Pemasukan</th>
+                <th>Pengeluaran</th>
+                <th>Saldo Akhir</th>
+              </tr>
+            </thead>
+            <tbody id="mutasiTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: DIREKTORI RUMAH IBADAH & ARAH KIBLAT -->
+    <section id="viewDirektori" class="app-view">
+      <div class="section-header-bar">
+        <div>
+          <h2>Direktori Rumah Ibadah Sekitar & Arah Kiblat</h2>
+          <p>Temukan masjid/musholla terdekat, fasilitas ibadah, serta penunjuk arah kiblat presisi.</p>
+        </div>
+      </div>
+
+      <div class="direktori-layout-grid">
+        <!-- Kolom Kiri: Kompas Kiblat Interaktif -->
+        <div class="kiblat-card card">
+          <div class="kiblat-header">
+            <h3>Panduan Arah Kiblat</h3>
+            <span class="kiblat-degree-badge">295° Baratlaut</span>
+          </div>
+          <p class="kiblat-sub">Arah Ka'bah dari wilayah Kota Yogyakarta / Pulau Jawa.</p>
+
+          <div class="compass-wrapper">
+            <div class="compass-dial">
+              <span class="compass-point north">U</span>
+              <span class="compass-point east">T</span>
+              <span class="compass-point south">S</span>
+              <span class="compass-point west">B</span>
+              <div class="compass-needle" style="transform: rotate(295deg);">
+                <div class="needle-tip">
+                  <div class="kabah-icon">🕋</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="kiblat-tips">
+            <strong>Cara Menghadap Kiblat:</strong>
+            <p>Berdirilah menghadap sekitar 25° ke arah kanan dari arah Barat murni (menuju arah Ka'bah 295° Baratlaut).</p>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Daftar Masjid & Musholla Sekitar -->
+        <div class="masjid-list-box card">
+          <div class="masjid-list-head">
+            <h3>Daftar Rumah Ibadah di Wilayah Mantrijeron</h3>
+            <span class="badge-tag">Terverifikasi</span>
+          </div>
+          <div class="masjid-items-grid" id="masjidItemsGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: QRIS INFAQ MASJID -->
+  <div class="modal-backdrop" id="qrisModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Infaq Digital (QRIS Masjid)</h3>
+          <button type="button" class="btn-close" id="btnCloseQrisModal">&times;</button>
+        </div>
+        <div class="qris-body text-center">
+          <div class="qris-masjid-title">MASJID AL-IKHLAS MANTRIJERON</div>
+          <p class="qris-masjid-sub">NMID: ID1020261121001 • Rek Bank Syariah Indonesia: 7123-4567-89</p>
+
+          <!-- Simulated QR Code SVG Graphic -->
+          <div class="qris-code-box">
+            <div class="qris-logo-top">QRIS</div>
+            <svg viewBox="0 0 160 160" width="160" height="160" class="qris-svg">
+              <rect width="160" height="160" fill="#ffffff"/>
+              <!-- Corner Finder patterns -->
+              <rect x="10" y="10" width="40" height="40" fill="#000000"/>
+              <rect x="16" y="16" width="28" height="28" fill="#ffffff"/>
+              <rect x="22" y="22" width="16" height="16" fill="#000000"/>
+
+              <rect x="110" y="10" width="40" height="40" fill="#000000"/>
+              <rect x="116" y="16" width="28" height="28" fill="#ffffff"/>
+              <rect x="122" y="22" width="16" height="16" fill="#000000"/>
+
+              <rect x="10" y="110" width="40" height="40" fill="#000000"/>
+              <rect x="16" y="116" width="28" height="28" fill="#ffffff"/>
+              <rect x="22" y="122" width="16" height="16" fill="#000000"/>
+
+              <!-- Dots simulation -->
+              <rect x="60" y="20" width="8" height="8" fill="#000000"/>
+              <rect x="76" y="20" width="8" height="8" fill="#000000"/>
+              <rect x="90" y="20" width="8" height="8" fill="#000000"/>
+              <rect x="60" y="36" width="8" height="8" fill="#000000"/>
+              <rect x="76" y="36" width="8" height="8" fill="#000000"/>
+              <rect x="20" y="60" width="8" height="8" fill="#000000"/>
+              <rect x="36" y="60" width="8" height="8" fill="#000000"/>
+              <rect x="60" y="60" width="12" height="12" fill="#047857"/>
+              <rect x="80" y="60" width="8" height="8" fill="#000000"/>
+              <rect x="100" y="60" width="12" height="12" fill="#000000"/>
+              <rect x="120" y="60" width="8" height="8" fill="#000000"/>
+              <rect x="140" y="60" width="8" height="8" fill="#000000"/>
+              <rect x="60" y="80" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="80" width="12" height="12" fill="#047857"/>
+              <rect x="100" y="80" width="8" height="8" fill="#000000"/>
+              <rect x="130" y="80" width="8" height="8" fill="#000000"/>
+              <rect x="60" y="100" width="12" height="12" fill="#000000"/>
+              <rect x="90" y="100" width="8" height="8" fill="#000000"/>
+              <rect x="110" y="100" width="12" height="12" fill="#000000"/>
+              <rect x="60" y="120" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="120" width="8" height="8" fill="#000000"/>
+              <rect x="100" y="120" width="8" height="8" fill="#000000"/>
+              <rect x="120" y="120" width="8" height="8" fill="#000000"/>
+              <rect x="140" y="120" width="8" height="8" fill="#000000"/>
+            </svg>
+            <div class="qris-supported">BCA • Mandiri • BRI • BSI • GoPay • OVO • Dana • ShopeePay</div>
+          </div>
+
+          <!-- Quick Nominal Selection -->
+          <div class="qris-nominal-pills">
+            <button type="button" class="nom-pill" data-nom="10000">Rp 10.000</button>
+            <button type="button" class="nom-pill" data-nom="25000">Rp 25.000</button>
+            <button type="button" class="nom-pill active" data-nom="50000">Rp 50.000</button>
+            <button type="button" class="nom-pill" data-nom="100000">Rp 100.000</button>
+          </div>
+
+          <p class="qris-doa">"Semoga Allah membalas dengan kebaikan dan melipatgandakan rezeki bagi siapa saja yang berinfaq di jalan-Nya."</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-primary" id="btnConfirmQrisDonation">Simulasi Infaq Sukses</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: TAMBAH AGENDA KAJIAN -->
+  <div class="modal-backdrop" id="addKajianModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Tambah Agenda Kajian / Majelis</h3>
+          <button type="button" class="btn-close" id="btnCloseAddKajian">&times;</button>
+        </div>
+        <form id="formAddKajian" class="modal-form">
+          <div class="form-group">
+            <label for="kajianJudul">Judul / Tema Kajian</label>
+            <input type="text" id="kajianJudul" required placeholder="Contoh: Bedah Kitab Riyadhus Shalihin">
+          </div>
+          <div class="form-group">
+            <label for="kajianPemateri">Nama Ustadz / Penceramah</label>
+            <input type="text" id="kajianPemateri" required placeholder="Contoh: Ustadz Ahmad Fauzi, Lc.">
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="kajianKategori">Kategori Agenda</label>
+              <select id="kajianKategori">
+                <option value="Rutin">Kajian Rutin</option>
+                <option value="Tabligh">Tabligh Akbar</option>
+                <option value="TPA">Santri & TPA</option>
+                <option value="Sosial">Baksos / Sosial</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="kajianWaktu">Waktu Pelaksanaan</label>
+              <input type="text" id="kajianWaktu" required placeholder="Contoh: Sabtu Ba'da Maghrib">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="kajianTempat">Lokasi / Ruangan</label>
+            <input type="text" id="kajianTempat" value="Ruang Utama Masjid Al-Ikhlas" placeholder="Ruang Utama Masjid">
+          </div>
+          <div class="form-group">
+            <label for="kajianCatatan">Catatan / Fasilitas (Opsional)</label>
+            <input type="text" id="kajianCatatan" placeholder="Contoh: Terbuka untuk Ikhwan & Akhwat, Disediakan Snack">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelAddKajian">Batal</button>
+            <button type="submit" class="btn-primary">Simpan Agenda</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CATAT MUTASI KAS -->
+  <div class="modal-backdrop" id="addMutasiModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Catat Mutasi Kas Masjid</h3>
+          <button type="button" class="btn-close" id="btnCloseAddMutasi">&times;</button>
+        </div>
+        <form id="formAddMutasi" class="modal-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="mutasiTipe">Jenis Transaksi</label>
+              <select id="mutasiTipe">
+                <option value="IN">Pemasukan (Infaq / Donasi)</option>
+                <option value="OUT">Pengeluaran (Biaya / Operasional)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="mutasiPos">Pos Amanah</label>
+              <select id="mutasiPos">
+                <option value="Operasional">Kas Operasional</option>
+                <option value="Renovasi">Dana Renovasi</option>
+                <option value="Sosial">Santunan Yatim/Dhuafa</option>
+                <option value="Dakwah">Dakwah & TPA</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mutasiNominal">Jumlah Nominal (Rp)</label>
+            <input type="number" id="mutasiNominal" required placeholder="Contoh: 500000" min="1000">
+          </div>
+          <div class="form-group">
+            <label for="mutasiKet">Keterangan Transaksi</label>
+            <input type="text" id="mutasiKet" required placeholder="Contoh: Infaq Kotak Amal Jumat atau Pembayaran Listrik PLN">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelAddMutasi">Batal</button>
+            <button type="submit" class="btn-primary">Simpan Transaksi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer no-print">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Majelis Pro (SapaUmat) — Sistem Manajemen Digital Rumah Ibadah. Didesain untuk Jamaah & DKM.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
